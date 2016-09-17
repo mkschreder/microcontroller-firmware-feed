@@ -1,0 +1,10 @@
+--- a/Makefile
++++ b/Makefile
+@@ -786,7 +786,6 @@ override ASFLAGS		 := $(ASFLAGS) $(ARCH_
+ 
+ override LDFLAGS		 := $(LDFLAGS) -lm \
+ 		   -nostartfiles \
+-		   --specs=nano.specs \
+ 		   -lc \
+ 		   -lnosys \
+ 		   $(ARCH_FLAGS) \
