@@ -21,8 +21,6 @@ define Package/hello-world
   CATEGORY:=Firmwares
   TITLE:=Hello World app
   URL:=https://github.com/mkschreder/hello-world.git
-  TARGET_CFLAGS:=-mmcu=atmega328p -B/data/software/openwrt-micro/staging_dir/toolchain-avr_gcc-5.3.0_avrlibc-2.0.0/lib/avr5/
-  TARGET_LDFLAGS:=-L/data/software/openwrt-micro/staging_dir/toolchain-avr_gcc-5.3.0_avrlibc-2.0.0/lib/avr5/
   DEPENDS:=
 endef
 

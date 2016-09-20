@@ -4,18 +4,21 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=arduino-blink
 PKG_RELEASE:=1
-PKG_VERSION=1.13.0-$(PKG_SOURCE_VERSION)
+PKG_VERSION=1.13.0
 
 include $(INCLUDE_DIR)/package.mk
 
-TARGET_CFLAGS:=-mmcu=atmega328p -B$(TOOLCHAIN_DIR)/lib/avr5/
-TARGET_LDFLAGS:=-L$(TOOLCHAIN_DIR)/lib/avr5/
+ifeq ($(BOARD),arduino-promini)
+	TARGET_CFLAGS+=-mmcu=atmega328p -DF_CPU=16000000UL -B$(TOOLCHAIN_ROOT_DIR)/lib/avr5/
+endif
+#TARGET_CFLAGS:=-mmcu=atmega328p -B$(TOOLCHAIN_DIR)/lib/avr5/
+#TARGET_LDFLAGS:=-L$(TOOLCHAIN_DIR)/lib/avr5/
 
 define Package/arduino-blink
 	SECTION:=examples
 	CATEGORY:=Examples
 	TITLE:=Blink
-	DEPENDS:=@TARGET_avr
+	DEPENDS:=@avr
 endef
 
 define Package/arduino-blink/description
@@ -24,7 +27,6 @@ endef
 
 define Package/arduino-blink/install
 	echo "arduino-blink install"
-	exit 1
 endef
 
 define Build/Prepare
@@ -33,7 +35,7 @@ define Build/Prepare
 endef
 
 define Build/Compile
-	$(CC) $(PKG_BUILD_DIR)/main.c $(TARGET_CFLAGS) -o $(PKG_BUILD_DIR)/blink.bin $(TARGET_LDFLAGS)
+	$(TARGET_CC) $(PKG_BUILD_DIR)/main.c $(TARGET_CFLAGS) -o $(PKG_BUILD_DIR)/blink.bin $(TARGET_LDFLAGS)
 endef
 
 $(eval $(call BuildPackage,arduino-blink))

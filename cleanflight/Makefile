@@ -7,7 +7,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/mkschreder/cleanflight.git
-PKG_SOURCE_VERSION:=8fa5c88541ccd406c2fe8d1d8de0327a38cd86a6
+PKG_SOURCE_VERSION:=a77bc76ab655b5b6d5b24e2f23fda56847117e7d
 PKG_VERSION=1.13.0-$(PKG_SOURCE_VERSION)
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
@@ -29,8 +29,11 @@ define Package/cleanflight/description
 endef
 
 define Package/cleanflight/install
-	echo "cleanflight install"
-	exit 1
+	$(CP) $(PKG_BUILD_DIR)/obj/*.hex $(BIN_DIR)/
+endef
+
+define Build/Install 
+	# cleanflight makefile does not have an install target
 endef
 
 $(eval $(call BuildPackage,cleanflight))
